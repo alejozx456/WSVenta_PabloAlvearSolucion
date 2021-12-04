@@ -15,6 +15,7 @@ namespace WSVenta_PabloAlvear
 {
     public class Startup
     {
+        readonly string Micors = "Micors";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +26,13 @@ namespace WSVenta_PabloAlvear
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors(options=> {
+                options.AddPolicy(name: Micors, builder =>
+                {
+                    builder.WithOrigins("*");
+                });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,6 +52,7 @@ namespace WSVenta_PabloAlvear
             }
 
             app.UseRouting();
+            app.UseCors(Micors);
 
             app.UseAuthorization();
 
