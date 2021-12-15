@@ -14,7 +14,7 @@ namespace WSVenta_PabloAlvear.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-
+        
         [HttpGet]
         public IActionResult Get()
         {
@@ -25,7 +25,7 @@ namespace WSVenta_PabloAlvear.Controllers
 
                 using (VentaRealContext db = new VentaRealContext())
                 {
-                    var lst = db.Clientes.ToList();
+                    var lst = db.Clientes.OrderByDescending(d=>d.Id).ToList();
                     oRespuesta.Exito = 1;
                     oRespuesta.Data = lst;
 

@@ -20,6 +20,7 @@ namespace WSVenta_PabloAlvear.Models
         public virtual DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Concepto> Conceptos { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Ventum> Venta { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -99,6 +100,28 @@ namespace WSVenta_PabloAlvear.Models
                 entity.Property(e => e.PrecioUnitario)
                     .HasColumnType("decimal(16, 2)")
                     .HasColumnName("precioUnitario");
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.ToTable("usuario");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Nombre)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("nombre");
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(256)
+                    .IsUnicode(false)
+                    .HasColumnName("password");
             });
 
             modelBuilder.Entity<Ventum>(entity =>

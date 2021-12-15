@@ -30,7 +30,9 @@ namespace WSVenta_PabloAlvear
             services.AddCors(options=> {
                 options.AddPolicy(name: Micors, builder =>
                 {
+                    builder.WithHeaders("*");
                     builder.WithOrigins("*");
+                    builder.WithMethods("*");
                 });
             });
 
