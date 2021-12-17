@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using WSVenta_PabloAlvear.Models;
 using WSVenta_PabloAlvear.Models.Response;
 using WSVenta_PabloAlvear.Models.Request;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WSVenta_PabloAlvear.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ClienteController : ControllerBase
     {
         

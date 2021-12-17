@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WSVenta_PabloAlvear.Models.Request;
+using WSVenta_PabloAlvear.Models.Response;
+using WSVenta_PabloAlvear.Services;
 
 namespace WSVenta_PabloAlvear.Controllers
 {
@@ -12,10 +14,29 @@ namespace WSVenta_PabloAlvear.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpPost("login")]
         public IActionResult Autentificar([FromBody] AuthRequest model)
         {
-            return Ok(model);
+            Respuesta respuesta = new Respuesta();
+            
+            var userresponse = _userService.Auth(model);
+            if (userresponse == null)
+            {
+                respuesta.Exito = 0;
+                respuesta.Mensaje = "Usuario o contrasena incorrecta";
+                return BadRequest(respuesta);
+            }
+            respuesta.Exito = 1;
+            respuesta.Data = userresponse;
+                
+            return Ok(respuesta);
 
         }
     }
